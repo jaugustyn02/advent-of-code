@@ -1,5 +1,5 @@
-# input = 'sample.txt'
-input = 'puzzle.txt'
+# input = 'data/sample.txt'
+input = 'data/puzzle.txt'
 
 def main():
   result_sum = 0
