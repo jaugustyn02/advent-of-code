@@ -7,9 +7,10 @@ def main():
         lines = f.readlines()
         nums = list(map(int, lines[0].split(': ')[1].split()))
         seed_ranges = [[nums[i], nums[i] + nums[i+1], False] for i in range(0, len(nums), 2)]
+        print(seed_ranges)
         for line in lines[2:]:
             if line == '\n':
-                print(seed_ranges)
+                # print(seed_ranges)
                 continue
             if not line[0].isnumeric():
                 for i in range(len(seed_ranges)):
