@@ -1,5 +1,5 @@
-input = 'sample.txt'
-# input = 'puzzle.txt'
+# input = 'sample.txt'
+input = 'puzzle.txt'
 
 
 def map_to_decimal(string: str):
@@ -10,22 +10,28 @@ def map_to_decimal(string: str):
   return dec_num
   
 
+from math import log2
+
 def find_reflection(nums):
   n = len(nums)
   mid = 1
   for i in range(1, n, 2):
     rev_nums = nums[i:mid-1:-1]
-    # print(nums[0:mid], nums[i:mid-1:-1])
-    diff = [(nums[j], nums[j]) for j in range(mid)]
-    print(diff)
-    if nums[0:mid] == nums[i:mid-1:-1]:
-      return mid
+    diff = [(nums[j], rev_nums[j]) for j in range(mid) if nums[j] != rev_nums[j]]
+    if len(diff) == 1:
+      xor = diff[0][0] ^ diff[0][1]
+      if log2(xor)%1 == 0:
+        return mid
     mid += 1
   
   mid = n-1
   for i in range(n-2, -1, -2):
-    if nums[i:mid] == nums[n:mid-1:-1]:
-      return mid
+    rev_nums = nums[n:mid-1:-1]
+    diff = [(nums[j+i], rev_nums[j]) for j in range(n-mid) if nums[j+i] != rev_nums[j]]
+    if len(diff) == 1:
+      xor = diff[0][0] ^ diff[0][1]
+      if log2(xor)%1 == 0:
+        return mid
     mid -= 1
 
   return 0
@@ -44,7 +50,6 @@ def main():
     rows_num = [0 for _ in range(nrows)]
     for i, row in enumerate(rows):
       rows_num[i] = map_to_decimal(row)
-    # print(rows_num)
     res_sum += find_reflection(rows_num)*100
   
     cols = [list(x) for x in zip(*rows)]
@@ -52,9 +57,8 @@ def main():
     cols_num= [0 for _ in range(ncols)]
     for i, col in enumerate(cols):
       cols_num[i] = map_to_decimal(col)
-    # print(cols_num)
     res_sum += find_reflection(cols_num)
-  # print(patterns)
+
   print(res_sum)
 if __name__ == "__main__":
   main()
