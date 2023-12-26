@@ -1,7 +1,7 @@
 from collections import defaultdict
 
-# input = 'sample.txt'
-input = 'puzzle.txt'
+# input = 'data/sample.txt'
+input = 'data/puzzle.txt'
 
 
 workflows = {}
@@ -30,7 +30,7 @@ def evaluate_part(part, workflow_name):
       rate, boundry = rule.split('<')
       if part[rate] < int(boundry):
         return evaluate_part(part, destination)
-  return evaluate_part(part, destination)
+  # return evaluate_part(part, destination)
 
   
 def main():
